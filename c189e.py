@@ -4,14 +4,12 @@ import random
 
 def init(wordlist):
     ''' Read in words according to user specified difficulty '''
-    diff_prompt = "Pick a difficulty: easy(0),medium(1),hard(2)\n >:"
+    diff_prompt = "Pick a difficulty: easy(0),medium(1),hard(2)\n>:"
     diff = input(diff_prompt)
-    while diff not in ['0','1','2']:
-        if diff == "":
-            sys.exit()
+    minw,maxw = 6,15
+    while diff =="" or diff not in ['0','1','2']:
         diff = input("Invalid Input!\n"+diff_prompt)
-    dims = (7-float(diff)-1,
-            15//(float(diff)+1))
+    dims = (minw-int(diff), maxw//(int(diff)+1))
     print("Initialized game, using words of length ",dims[0],"->",dims[1])
     with open(wordlist,'r') as f:
         return [w.strip() for w in f if len(w.strip()) <= dims[1] and len(w.strip()) >= dims[0]],int(diff)
@@ -22,9 +20,8 @@ def start(word,lives):
     disp_prompt = disp_word+"\nGuess letter:"
     guessed = set([])
     guess = input(disp_prompt+"("+str(lives)+" lives left):")
-    while guess != "" and lives > 1:
-        disp_word = ""
-        if guess[0] in word:
+    while lives > 1:
+        if guess != "" and guess[0] in word:
             guessed.add(guess[0])
         else:
            lives -= 1
