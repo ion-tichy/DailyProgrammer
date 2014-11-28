@@ -20,8 +20,8 @@ def start(word,lives):
     disp_word = " ".join(["_ " for w in word])
     disp_prompt = disp_word+"\nGuess letter:"
     guessed = set([])
-    guess = input(disp_prompt)
-    while guess != "" and lives > 0:
+    guess = input(disp_prompt+"("+str(lives)+" lives left):")
+    while guess != "" and lives > 1:
         disp_word = ""
         if guess[0] in word:
             guessed.add(guess[0])
@@ -32,7 +32,14 @@ def start(word,lives):
             print("You win, the word was ",word)
             return    
         guess = input(disp_word+"\nGuess letter:"+"("+str(lives)+" lives left):")
-    print("You loose, the word was:",word)
-                
-   
-init('enable1.txt')
+    print("You loose, the word was:",word)              
+
+if __name__ == "__main__":
+    wlist = "enable1.txt"
+    if len(sys.argv) >= 3:
+        print("Usage: python c189e.py (<your-word-list>)\n Will use enable1.txt on default.")
+        sys.exit()
+    if len(sys.argv) == 3:
+        wlist = sys.argv[2]
+        
+    init(wlist)
