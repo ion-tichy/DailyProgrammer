@@ -1,12 +1,13 @@
 ''' Webscraping sentiments '''
 import sys
-
+import urllib3
 happy = ['love','loved','like','liked','awesome','amazing','good','great','excellent']
 sad = ['hate','hated','dislike','disliked','awful','terrible','bad','painful','worst'] 
 
 def scrape(N): 
-   pass
-
+   http = urllib3.PoolManager()
+   r = http.request('GET',"http://www.youtube.com")
+   print(r.data)
 
 def output(N,sentiment,numHappy,numSad,generalFeeling):
     ''' The output message'''
@@ -19,4 +20,5 @@ if __name__ == "__main__":
         print("Usage: python c190e.py <youtube-video-url>")
         sys.exit()
     url = sys.argv[1]
+    scrape(0)
     
