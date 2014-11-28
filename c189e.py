@@ -1,7 +1,9 @@
 import sys
 import random
-''' Simple CLI Hangman '''
+''' C189E: Simple CLI Hangman '''
+
 def init(wordlist):
+    ''' Read in words according to user specified difficulty '''
     diff_prompt = "Pick a difficulty: easy(0),medium(1),hard(2)\n >:"
     diff = input(diff_prompt)
     while diff not in ['0','1','2']:
@@ -12,11 +14,10 @@ def init(wordlist):
             15//(float(diff)+1))
     print("Initialized game, using words of length ",dims[0],"->",dims[1])
     with open(wordlist,'r') as f:
-        start(random.sample([w.strip() for w in f if len(w.strip()) <= dims[1] and len(w.strip()) >= dims[0]],1)[0],
-              9 - 3*int(diff)
-              )
-            
+        return [w.strip() for w in f if len(w.strip()) <= dims[1] and len(w.strip()) >= dims[0]],int(diff)
+           
 def start(word,lives):
+    ''' Start a round using #word and a certain amount of lives '''
     disp_word = " ".join(["_ " for w in word])
     disp_prompt = disp_word+"\nGuess letter:"
     guessed = set([])
@@ -36,10 +37,11 @@ def start(word,lives):
 
 if __name__ == "__main__":
     wlist = "enable1.txt"
-    if len(sys.argv) >= 3:
+    if len(sys.argv) > 2:
         print("Usage: python c189e.py (<your-word-list>)\n Will use enable1.txt on default.")
         sys.exit()
-    if len(sys.argv) == 3:
-        wlist = sys.argv[2]
-        
-    init(wlist)
+    if len(sys.argv) == 2:
+        wlist = sys.argv[1]
+        print("Enabling custom wordlist",wlist)
+    wordlist,diff = init(wlist)
+    start(random.sample(wordlist,1)[0],9 - 3*int(diff))
