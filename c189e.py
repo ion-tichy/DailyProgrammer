@@ -7,12 +7,13 @@ def init(wordlist):
     diff_prompt = "Pick a difficulty: easy(0),medium(1),hard(2)\n>:"
     diff = input(diff_prompt)
     minw,maxw = 6,15
+    maxLives = 9
     while diff =="" or diff not in ['0','1','2']:
         diff = input("Invalid Input!\n"+diff_prompt)
     dims = (minw-int(diff), maxw//(int(diff)+1))
     print("Initialized game, using words of length ",dims[0],"->",dims[1])
     with open(wordlist,'r') as f:
-        return [w.strip() for w in f if len(w.strip()) <= dims[1] and len(w.strip()) >= dims[0]],int(diff)
+        return [w.strip() for w in f if len(w.strip()) <= dims[1] and len(w.strip()) >= dims[0]], maxLives - 3*int(diff)
            
 def start(word,lives):
     ''' Start a round using #word and a certain amount of lives '''
@@ -40,5 +41,5 @@ if __name__ == "__main__":
     if len(sys.argv) == 2:
         wlist = sys.argv[1]
         print("Enabling custom wordlist",wlist)
-    wordlist,diff = init(wlist)
-    start(random.sample(wordlist,1)[0],9 - 3*int(diff))
+    wordlist,lives = init(wlist)
+    start(random.sample(wordlist,1)[0],lives)
