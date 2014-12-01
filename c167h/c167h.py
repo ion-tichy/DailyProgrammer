@@ -13,10 +13,8 @@ class Matrix(dict):
         return -1
         
     def degree(self,vertex):
-        dlist = [ k for k in self if k[0] == vertex and self[k] != -1]
-        deg =  len(dlist)
-        print("Degree of vertex",vertex,":",deg,dlist)
-        return deg
+        return len([ k for k in self if k[0] == vertex and self[k] != -1])
+
         
 def getAlphaIndex(num):
     if 0<= num and num < 26:
