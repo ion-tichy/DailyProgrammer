@@ -30,14 +30,14 @@ def loadMatrix(filename):
         lines = f.readlines()
         size = int(lines[0].strip())
         m = Matrix(size)
-        i = 0
-        for l in lines[1:]:
+      
+        for i,l in enumerate(lines[1:]):
             row = l.strip().split(',')
             print("Adding row ",row)
             for j in range(0, size):
                 print("Adding entry",i,j,"=>",row[j])
                 m.addEntry(i,j,int(row[j]))
-            i += 1                
+                  
         return m                    
 
 
@@ -60,7 +60,7 @@ if __name__ == "__main__":
     filename1 = "example1matrix.txt"
     filename2 = "example2matrix.txt"
     filename3 = 'challengematrix.txt'
-    m = loadMatrix(filename1)
+    m = loadMatrix(filename2)
     for i in range(0,m.size):
       print(i,[m[i,j] for j in range(0,m.size)])
       
