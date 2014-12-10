@@ -46,8 +46,8 @@ class MarkovChain(dict):
         out +="\n"
         for v in sorted(self.vocab):
           out += v+"\t"
-          for w in self.vocab:
-              out += str(self[(w,v)])+"\t"
+          for w in sorted(self.vocab):
+              out += str(self[(v,w)])+"\t"
           out +="\n"
         return out
 
@@ -55,8 +55,8 @@ def test():
     ''' Test method '''
     mc = MarkovChain()
     mc.train('trainfile.txt')
-    correct = "aardvark" # todo
-    wrong = "axumilog" #todo
+    correct = "aardvark"
+    wrong = "axrztog"
     print("Correct word ",correct,mc.getProbability(correct))
     print("Wrong word ", wrong, mc.getProbability(wrong))
     print(mc)
