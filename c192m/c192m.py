@@ -5,6 +5,7 @@
 # 1. build occurrence matrix
 # 2. for input word: predict using the occ matrix if word is misspelled
 
+
 class MarkovChain(dict):
     ''' The Markov Chain used for validation '''
     def __init__(self):
